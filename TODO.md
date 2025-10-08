@@ -1,8 +1,35 @@
 # Space Trucker Tools - Angular Conversion Project
 
-## Project Overview
+## Project Over### Aaron's Jump Data Page Conversion ✨ **NEW**
 
-Converting a plain HTML/JS/CSS application to Angular with page components and routing.
+- [x] Converted `AaronsJumpData.html` to Angular AaronsJumpDataComponent
+- [x] Created TypeScript interface for JumpEntry data structure
+- [x] Implemented table display with Angular \*ngFor directive
+- [x] Converted all JavaScript functionality to TypeScript component methods:
+  - [x] Export to TXT functionality
+  - [x] Export to CSV functionality
+  - [x] Copy to clipboard functionality
+  - [x] File download utility functions
+  - [x] Timestamp generation for exports
+- [x] Converted original CSS to component-scoped SCSS with responsive design
+- [x] Fixed routing configuration to use AaronsJumpDataComponent
+- [x] Verified Aaron's Jump Data page functionality at http://localhost:4200/aarons-jump-data
+- [x] Embedded jump data directly in component (from JumpData.js)
+
+### Item Lookup Page Conversion ✨ **NEW**
+
+- [x] Created ItemLookupComponent with Angular CLI structure
+- [x] Converted `ItemLookup.html` to Angular template
+- [x] Implemented API testing functionality for Regolith and UEX APIs
+- [x] Converted JavaScript functionality to TypeScript component methods:
+  - [x] Regolith Profile API fetch with localStorage integration
+  - [x] UEX Item Prices API fetch with authentication
+  - [x] Error handling and display
+  - [x] HTML result rendering with Angular's innerHTML binding
+- [x] Converted original CSS to component-scoped SCSS with responsive design
+- [x] Added routing configuration for ItemLookupComponent
+- [x] Added navigation link for "WIP Item Lookup"
+- [x] Verified Item Lookup page functionality at http://localhost:4200/item-lookupg a plain HTML/JS/CSS application to Angular with page components and routing.
 
 ## ✅ Completed Tasks
 

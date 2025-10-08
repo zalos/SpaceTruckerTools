@@ -1,0 +1,16 @@
+<!-- Item Lookup - Angular Conversion -->
+<div class="container">
+  <h1>Item Lookup</h1>
+
+  <div class="result-block">
+    <h2>Regolith Profile Test</h2>
+    <button (click)="fetchRegolithProfile()">Fetch Regolith Profile</button>
+    <div id="regolithResult" [innerHTML]="regolithResult"></div>
+  </div>
+
+  <div class="result-block">
+    <h2>UEX Item Prices Test</h2>
+    <button (click)="fetchUEXItemPrices()">Fetch UEX Item Prices</button>
+    <div id="uexResult" [innerHTML]="uexResult"></div>
+  </div>
+</div>
