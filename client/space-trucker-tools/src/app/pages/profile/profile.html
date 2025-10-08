@@ -1,4 +1,136 @@
-<div class="placeholder-page">
-  <h1>Profile</h1>
-  <p>🚧 This page is under construction and will be converted from the original HTML version.</p>
+<!-- Profile Page - Angular Conversion -->
+<div class="container">
+  <h1>Profile Setup</h1>
+
+  <form #profileForm="ngForm" (ngSubmit)="saveProfile()">
+    <label
+      >Organization Name:
+      <input type="text" [(ngModel)]="profile.orgname" name="orgname" />
+    </label>
+
+    <label
+      >Organization URL:
+      <input type="url" [(ngModel)]="profile.orgurl" name="orgurl" />
+    </label>
+
+    <label
+      >Organization Image URL:
+      <input type="url" [(ngModel)]="profile.orgimage" name="orgimage" />
+    </label>
+
+    <label
+      >In-Game User Name:
+      <input type="text" [(ngModel)]="profile.username" name="username" />
+    </label>
+
+    <label
+      >User Image URL:
+      <input type="url" [(ngModel)]="profile.userimage" name="userimage" />
+    </label>
+
+    <label
+      >User Description:
+      <textarea [(ngModel)]="profile.userdesc" name="userdesc" rows="4"></textarea>
+    </label>
+
+    <label
+      >Regolith Secret Key:
+      <input type="password" [(ngModel)]="profile.regolithKey" name="regolithKey" />
+    </label>
+
+    <label
+      >UEX API Key:
+      <input type="password" [(ngModel)]="profile.uexKey" name="uexKey" />
+    </label>
+
+    <label>Discord Webhooks:</label>
+    <div class="flex-row">
+      <input
+        type="text"
+        [(ngModel)]="newWebhook.name"
+        name="webhookName"
+        placeholder="Webhook Name"
+      />
+      <input type="url" [(ngModel)]="newWebhook.url" name="webhookUrl" placeholder="Webhook URL" />
+      <button type="button" (click)="addWebhook()">+</button>
+    </div>
+
+    <table id="webhook-table" *ngIf="webhooks.length > 0">
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>URL</th>
+          <th>Remove</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let webhook of webhooks; let i = index">
+          <td>{{ webhook.name }}</td>
+          <td>
+            <a [href]="webhook.url" target="_blank" rel="noopener">{{ webhook.url }}</a>
+          </td>
+          <td>
+            <span class="delete-btn" (click)="removeWebhook(i)" title="Remove webhook">❌</span>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+
+    <label
+      >Additional Data (JSON format):
+      <textarea
+        [(ngModel)]="profile.otherdata"
+        name="otherdata"
+        rows="4"
+        placeholder='{"role":"Leader","level":10}'
+      ></textarea>
+    </label>
+
+    <div id="buttons-row">
+      <button type="submit">Save Profile</button>
+      <button type="button" (click)="loadProfile()">Load Profile</button>
+      <button type="button" (click)="clearProfile()">Clear Profile</button>
+      <button type="button" (click)="exportProfile()">Export Profile</button>
+    </div>
+
+    <label for="import-json" style="margin-top: 1rem; display: block"> Import Profile JSON: </label>
+    <textarea
+      [(ngModel)]="importJson"
+      name="importJson"
+      rows="6"
+      placeholder="Paste profile JSON here to import"
+    ></textarea>
+    <button type="button" (click)="importProfile()">Import JSON</button>
+  </form>
+
+  <div class="profile-view" *ngIf="showProfileView">
+    <h2>Current Profile</h2>
+    <p><strong>Organization Name:</strong> {{ profile.orgname }}</p>
+    <p *ngIf="profile.orgurl">
+      <strong>Organization URL:</strong>
+      <a [href]="profile.orgurl" target="_blank" rel="noopener">{{ profile.orgurl }}</a>
+    </p>
+    <p *ngIf="profile.orgimage">
+      <strong>Organization Image:</strong><br /><img
+        [src]="profile.orgimage"
+        alt="Organization Image"
+      />
+    </p>
+    <p><strong>In-Game Username:</strong> {{ profile.username }}</p>
+    <p *ngIf="profile.userimage">
+      <strong>User Image:</strong><br /><img [src]="profile.userimage" alt="User Image" />
+    </p>
+    <p><strong>Description:</strong> {{ profile.userdesc }}</p>
+    <p><strong>Regolith Key:</strong> {{ obscureKey(profile.regolithKey) }}</p>
+    <p><strong>UEX Key:</strong> {{ obscureKey(profile.uexKey) }}</p>
+    <p><strong>Webhooks:</strong></p>
+    <ul>
+      <li *ngFor="let webhook of webhooks">
+        <strong>{{ webhook.name }}:</strong>
+        <a [href]="webhook.url" target="_blank" rel="noopener">{{ webhook.url }}</a>
+      </li>
+    </ul>
+    <p><strong>Additional Data:</strong></p>
+    <pre>{{ formatJsonData(profile.otherdata) }}</pre>
+  </div>
 </div>

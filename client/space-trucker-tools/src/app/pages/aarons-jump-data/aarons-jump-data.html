@@ -1,4 +1,29 @@
-<div class="placeholder-page">
-  <h1>Aaron's Jump Data</h1>
-  <p>🚧 This page is under construction and will be converted from the original HTML version.</p>
+<!-- Aaron's Jump Data - Angular Conversion -->
+<div class="container">
+  <h1>Quantum Jump Data for Aaron's Halo</h1>
+
+  <table id="jumpTable">
+    <thead>
+      <tr>
+        <th>From</th>
+        <th>To</th>
+        <th>Drop-Out Range (millions of km)</th>
+        <th>Notes</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let entry of jumpData">
+        <td>{{ entry.from }}</td>
+        <td>{{ entry.to }}</td>
+        <td class="highlight">{{ entry.range }}</td>
+        <td>{{ entry.notes || '' }}</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div id="exportBox">
+    <button (click)="exportToTXT()">Export TXT</button>
+    <button (click)="exportToCSV()">Export CSV</button>
+    <button (click)="copyToClipboard()">Copy to Clipboard</button>
+  </div>
 </div>
