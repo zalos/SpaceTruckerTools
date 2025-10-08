@@ -1,0 +1,16 @@
+// Main App Component Styles
+
+:host {
+  display: block;
+  min-height: 100vh;
+}
+
+// Ensure smooth scrolling and proper spacing
+main {
+  padding-top: 0;
+}
+
+// Remove any default margins that might interfere with the centered navigation
+* {
+  box-sizing: border-box;
+}

@@ -1,13 +1,37 @@
-<div class="nav-tabs">
-  <a routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }"
-    >Space Trucker Tools</a
-  >
-  <a routerLink="/cargo-manifest-writer" routerLinkActive="active">Cargo Manifest Writer</a>
-  <a routerLink="/workorders-overview" routerLinkActive="active">Work Orders Overview</a>
-  <a routerLink="/profit-splitter" routerLinkActive="active">Profit Splitter</a>
-  <a routerLink="/yield-2-sell" routerLinkActive="active">Yield 2 Sell</a>
-  <a routerLink="/scavenger" routerLinkActive="active">Scavenger</a>
-  <a routerLink="/aarons-jump-data" routerLinkActive="active">Aaron's Jump Data</a>
-  <a routerLink="/item-lookup" routerLinkActive="active">WIP Item Lookup</a>
-  <a routerLink="/profile" routerLinkActive="active">Profile</a>
-</div>
+<nav class="main-navigation">
+  <div class="nav-container">
+    <div class="nav-brand">
+      <a routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">
+        <span class="brand-icon">🚀</span>
+        <span class="brand-text">Space Trucker Tools</span>
+      </a>
+    </div>
+
+    <div class="nav-links">
+      <a routerLink="/cargo-manifest-writer" routerLinkActive="active" class="nav-link">
+        <span class="link-text">Cargo Manifest</span>
+      </a>
+      <a routerLink="/workorders-overview" routerLinkActive="active" class="nav-link">
+        <span class="link-text">Work Orders</span>
+      </a>
+      <a routerLink="/profit-splitter" routerLinkActive="active" class="nav-link">
+        <span class="link-text">Profit Splitter</span>
+      </a>
+      <a routerLink="/yield-2-sell" routerLinkActive="active" class="nav-link">
+        <span class="link-text">Yield 2 Sell</span>
+      </a>
+      <a routerLink="/scavenger" routerLinkActive="active" class="nav-link">
+        <span class="link-text">Scavenger</span>
+      </a>
+      <a routerLink="/aarons-jump-data" routerLinkActive="active" class="nav-link">
+        <span class="link-text">Jump Data</span>
+      </a>
+      <a routerLink="/item-lookup" routerLinkActive="active" class="nav-link">
+        <span class="link-text">Item Lookup</span>
+      </a>
+      <a routerLink="/profile" routerLinkActive="active" class="nav-link">
+        <span class="link-text">Profile</span>
+      </a>
+    </div>
+  </div>
+</nav>
