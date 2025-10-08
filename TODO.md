@@ -137,12 +137,57 @@
 - [x] Converted original CSS to component-scoped SCSS with responsive design
 - [x] Fixed routing configuration to use AaronsJumpDataComponent
 - [x] Verified Aaron's Jump Data page functionality at http://localhost:4200/aarons-jump-data
-- [x] Embedded jump data directly in component (from JumpData.js)
-- [x] Confirmed navigation and routing works
-- [x] Configured root-level package.json with development scripts
-- [x] Fixed Angular asset configuration in angular.json
-- [x] Resolved CSS asset path issues
-- [x] Added concurrently for full-stack development
+
+### Item Lookup Page Conversion ✨ **NEW**
+
+- [x] Created ItemLookupComponent with Angular CLI structure
+- [x] Converted `ItemLookup.html` to Angular template
+- [x] Implemented API testing functionality for Regolith and UEX APIs
+- [x] Converted JavaScript functionality to TypeScript component methods:
+  - [x] Regolith Profile API fetch with localStorage integration
+  - [x] UEX Item Prices API fetch with authentication
+  - [x] Error handling and display
+  - [x] HTML result rendering with Angular's innerHTML binding
+- [x] Converted original CSS to component-scoped SCSS with responsive design
+- [x] Added routing configuration for ItemLookupComponent
+- [x] Added navigation link for "WIP Item Lookup"
+- [x] Verified Item Lookup page functionality at http://localhost:4200/item-lookup
+
+### Profit Splitter Page Conversion ✨ **NEW**
+
+- [x] Converted `ProfitSplitter.html` to Angular ProfitSplitterComponent
+- [x] Created TypeScript interfaces for Player, Expense, CompletedOrder, and CalculatedEntry
+- [x] Implemented dynamic player management with Angular arrays and \*ngFor
+- [x] Converted complex JavaScript calculations to TypeScript component methods:
+  - [x] Real-time profit calculations with multiple split types (flat, percent, share)
+  - [x] Tax calculations (5% tax handling)
+  - [x] Expense tracking per player with add/remove functionality
+  - [x] Work orders integration from localStorage with selection toggles
+  - [x] Post-expense profit and accounting buffer calculations
+  - [x] Itemized breakdown table generation
+- [x] Implemented export functionality (CSV, TXT, clipboard)
+- [x] Added two-way data binding with FormsModule for all form inputs
+- [x] Converted original CSS to component-scoped SCSS with responsive design
+- [x] Fixed routing configuration to use ProfitSplitterComponent
+- [x] Verified Profit Splitter page functionality at http://localhost:4200/profit-splitter
+
+### Workorders Overview Page Conversion ✨ **NEW**
+
+- [x] Converted `WorkordersOverview.html` to Angular WorkordersOverviewComponent
+- [x] Created TypeScript interfaces for Workorder, WorkorderCategory, and WorkorderItem
+- [x] Implemented three-state workorder management (Available → Active → Completed)
+- [x] Converted complex JavaScript functionality to TypeScript component methods:
+  - [x] Dynamic workorder list rendering with \*ngFor
+  - [x] Expandable order details with manifest tables
+  - [x] Order state transitions (activate/complete) with event handling
+  - [x] localStorage integration for data persistence
+  - [x] Expanded state management for collapsible sections
+  - [x] Complex data loading with error handling for different storage formats
+- [x] Implemented modal functionality for Profit Splitter integration
+- [x] Added responsive table design for workorder manifests
+- [x] Converted original CSS from multiple files to component-scoped SCSS
+- [x] Fixed routing configuration to use WorkordersOverviewComponent
+- [x] Verified Workorders Overview page functionality at http://localhost:4200/workorders-overview
 
 ## 🚧 Current Tasks
 
@@ -179,12 +224,29 @@
   - [ ] Convert table generation to Angular components
   - [ ] Handle modal functionality
   - [ ] Import and integrate JavaScript dependencies
-- [ ] **Workorders Overview** - Convert `WorkordersOverview.html`
-- [ ] **Profit Splitter** - Convert `ProfitSplitter.html`
+- [x] **Workorders Overview** - Convert `WorkordersOverview.html` ✅ COMPLETED
+- [x] **Profit Splitter** - Convert `ProfitSplitter.html` ✅ COMPLETED
 - [ ] **Yield 2 Sell** - Convert `Yield2Sell.html`
 - [ ] **Scavenger** - Convert `Scavenger.html`
-- [ ] **Aaron's Jump Data** - Convert `AaronsJumpData.html`
-- [ ] **Profile** - Convert `Profile.html`
+- [x] **Aaron's Jump Data** - Convert `AaronsJumpData.html` ✅ COMPLETED
+- [x] **Profile** - Convert `Profile.html` ✅ COMPLETED
+- [x] **Item Lookup** - Convert `ItemLookup.html` ✅ COMPLETED
+
+### 🎉 PHASE 2 PROGRESS: 5 of 8 Pages Converted!
+
+**Completed Pages:**
+
+1. ✅ Profile - Complex forms with localStorage and webhooks
+2. ✅ Aaron's Jump Data - Simple table with exports
+3. ✅ Item Lookup - API testing functionality
+4. ✅ Profit Splitter - Complex calculations and financial logic
+5. ✅ Workorders Overview - State management and expandable lists
+
+**Remaining Pages:**
+
+- Cargo Manifest Writer (complex)
+- Yield 2 Sell (complex with modals)
+- Scavenger (has WIP overlay)
 
 ### Medium Priority - Component Architecture
 

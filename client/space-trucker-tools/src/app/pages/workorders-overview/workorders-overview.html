@@ -1,4 +1,107 @@
-<div class="placeholder-page">
-  <h1>Workorders Overview</h1>
-  <p>🚧 This page is under construction and will be converted from the original HTML version.</p>
+<!-- Workorders Overview - Angular Conversion -->
+<div class="main-container">
+  <h1>Workorder Overview</h1>
+
+  <div class="container">
+    <div class="list" id="availableList">
+      <h2>Available Workorders</h2>
+      <p *ngIf="availableOrders.length === 0">No available workorders</p>
+      <div *ngFor="let order of availableOrders" class="work-order" [attr.data-key]="order.key">
+        <div class="order-header" (click)="toggleManifest(order.key)">
+          <span class="toggle-icon">{{ isExpanded(order.key) ? '−' : '+' }}</span>
+          <span>{{ order.title }} — Saved: {{ formatDate(order.dateSaved) }}</span>
+        </div>
+        <div class="manifest-table" [class.hidden]="!isExpanded(order.key)">
+          <div *ngFor="let category of order.categories">
+            <h4>{{ category.category }}</h4>
+            <table>
+              <thead>
+                <tr>
+                  <th>Item</th>
+                  <th>Qty</th>
+                  <th>Location</th>
+                  <th>SCU</th>
+                  <th>Unit Price</th>
+                  <th>Total</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let item of category.items">
+                  <td>{{ item.item }}</td>
+                  <td>{{ formatNumber(item.qty) }}</td>
+                  <td>{{ item.location }}</td>
+                  <td>{{ item.scuType?.toUpperCase() || '' }}</td>
+                  <td>{{ formatNumber(item.unitPrice) }}</td>
+                  <td>{{ formatNumber(item.total) }}</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="grand-total">Grand Total: {{ formatNumber(order.grandTotal) }} aUEC</div>
+          <button (click)="activateOrder(order.key, $event)">Activate</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="list" id="activeList">
+      <h2>Active Workorders</h2>
+      <p *ngIf="activeOrders.length === 0">No active workorders</p>
+      <div *ngFor="let order of activeOrders" class="work-order" [attr.data-key]="order.key">
+        <div class="order-header" (click)="toggleManifest(order.key)">
+          <span class="toggle-icon">{{ isExpanded(order.key) ? '−' : '+' }}</span>
+          <span>{{ order.title }}</span>
+        </div>
+        <div class="manifest-table" [class.hidden]="!isExpanded(order.key)">
+          <div *ngFor="let category of order.categories">
+            <h4>{{ category.category }}</h4>
+            <table>
+              <thead>
+                <tr>
+                  <th>Item</th>
+                  <th>Qty</th>
+                  <th>Location</th>
+                  <th>SCU</th>
+                  <th>Unit Price</th>
+                  <th>Total</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let item of category.items">
+                  <td>{{ item.item }}</td>
+                  <td>{{ formatNumber(item.qty) }}</td>
+                  <td>{{ item.location }}</td>
+                  <td>{{ item.scuType?.toUpperCase() || '' }}</td>
+                  <td>{{ formatNumber(item.unitPrice) }}</td>
+                  <td>{{ formatNumber(item.total) }}</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="grand-total">Grand Total: {{ formatNumber(order.grandTotal) }} aUEC</div>
+          <button (click)="completeOrder(order.key, $event)">Complete</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="bottom-list" id="completedList">
+    <h2>Completed Workorders</h2>
+    <p *ngIf="completedOrders.length === 0">No completed work orders</p>
+    <div *ngFor="let order of completedOrders" class="work-order">
+      <strong>{{ order.title }}</strong> — {{ formatNumber(order.grandTotal) }} aUEC
+    </div>
+  </div>
+
+  <div>
+    <button id="openModalBtn" (click)="openProfitSplitterModal()">Open Profit Splitter</button>
+  </div>
+</div>
+
+<!-- Modal container -->
+<div id="profitModal" class="modal" [style.display]="showModal ? 'flex' : 'none'">
+  <div class="modal-content">
+    <span id="closeModal" class="close-btn" (click)="closeProfitSplitterModal()">&times;</span>
+    <h2>Profit Splitter Help</h2>
+    <iframe src="/profit-splitter" style="width: 100%; height: 80vh; border: none"> </iframe>
+  </div>
 </div>

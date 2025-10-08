@@ -1,7 +1,7 @@
 import { Routes } from '@angular/router';
 import { Home } from './pages/home/home';
 import { CargoManifestWriter } from './pages/cargo-manifest-writer/cargo-manifest-writer';
-import { WorkordersOverview } from './pages/workorders-overview/workorders-overview';
+import { WorkordersOverviewComponent } from './pages/workorders-overview/workorders-overview';
 import { ProfitSplitterComponent } from './pages/profit-splitter/profit-splitter';
 import { Yield2Sell } from './pages/yield-2-sell/yield-2-sell';
 import { Scavenger } from './pages/scavenger/scavenger';
@@ -12,7 +12,7 @@ import { ItemLookupComponent } from './pages/item-lookup/item-lookup';
 export const routes: Routes = [
   { path: '', component: Home },
   { path: 'cargo-manifest-writer', component: CargoManifestWriter },
-  { path: 'workorders-overview', component: WorkordersOverview },
+  { path: 'workorders-overview', component: WorkordersOverviewComponent },
   { path: 'profit-splitter', component: ProfitSplitterComponent },
   { path: 'yield-2-sell', component: Yield2Sell },
   { path: 'scavenger', component: Scavenger },
