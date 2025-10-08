@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 
@@ -53,7 +53,7 @@ interface SavedManifests {
   standalone: true,
   imports: [CommonModule, FormsModule],
   templateUrl: './cargo-manifest-writer.component.html',
-  styleUrls: ['./cargo-manifest-writer.component.scss']
+  styleUrls: ['./cargo-manifest-writer.component.scss'],
 })
 export class CargoManifestWriterComponent implements OnInit {
   manifestTitle = '';
@@ -61,6 +61,7 @@ export class CargoManifestWriterComponent implements OnInit {
   grandTotal = 0;
   lastSaved = '';
   currentManifestKey = '';
+  dataLoaded = false;
 
   showWorkOrdersModal = false;
   showSavedManifestsModal = false;
@@ -75,6 +76,8 @@ export class CargoManifestWriterComponent implements OnInit {
   itemPrices: ItemPrices = {};
   itemColors: ItemColors = {};
 
+  constructor(private cdr: ChangeDetectorRef) {}
+
   ngOnInit() {
     this.loadItemData();
   }
@@ -86,6 +89,9 @@ export class CargoManifestWriterComponent implements OnInit {
       this.itemPrices = data.ITEM_PRICES;
       this.itemColors = data.ITEM_COLORS;
       this.initializeItems();
+      this.dataLoaded = true;
+      // Trigger change detection to update the UI
+      this.cdr.detectChanges();
     } catch (error) {
       console.error('Failed to load item data:', error);
     }
@@ -93,19 +99,19 @@ export class CargoManifestWriterComponent implements OnInit {
 
   private initializeItems() {
     // Initialize empty items for each category
-    Object.keys(this.itemPrices).forEach(category => {
-      Object.keys(this.itemPrices[category]).forEach(itemName => {
+    Object.keys(this.itemPrices).forEach((category) => {
+      Object.keys(this.itemPrices[category]).forEach((itemName) => {
         const itemData = this.itemPrices[category][itemName];
         const locations = Object.keys(itemData);
         const firstLocation = locations[0];
-        
+
         const cargoItem: CargoItem = {
           item: itemName,
           qty: 0,
           location: firstLocation,
           scuType: 'scu',
           unitPrice: itemData[firstLocation].scu,
-          total: 0
+          total: 0,
         };
 
         switch (category) {
@@ -147,12 +153,13 @@ export class CargoManifestWriterComponent implements OnInit {
 
   updateGrandTotal() {
     this.grandTotal = 0;
-    [this.shipMiningItems, this.handMiningItems, this.salvageItems, this.shipPartsItems]
-      .forEach(items => {
-        items.forEach(item => {
+    [this.shipMiningItems, this.handMiningItems, this.salvageItems, this.shipPartsItems].forEach(
+      (items) => {
+        items.forEach((item) => {
           this.grandTotal += item.total || 0;
         });
-      });
+      }
+    );
   }
 
   incrementQuantity(item: CargoItem, amount: number, category: string) {
@@ -178,18 +185,18 @@ export class CargoManifestWriterComponent implements OnInit {
       { label: 'Ship Mining', items: this.shipMiningItems },
       { label: 'Handheld and Light Ship Mining', items: this.handMiningItems },
       { label: 'Salvage', items: this.salvageItems },
-      { label: 'Ship Parts', items: this.shipPartsItems }
+      { label: 'Ship Parts', items: this.shipPartsItems },
     ];
 
     let grandTotal = 0;
 
     categories.forEach(({ label, items }) => {
-      const activeItems = items.filter(item => item.qty > 0);
+      const activeItems = items.filter((item) => item.qty > 0);
       if (activeItems.length > 0) {
         csv += `Category:|${label}\n`;
         csv += `Item|Quantity|Location|Unit Price|Total\n`;
 
-        activeItems.forEach(item => {
+        activeItems.forEach((item) => {
           const formattedUnitPrice = item.unitPrice.toLocaleString();
           const formattedTotal = item.total.toLocaleString();
           csv += `"${item.item}"|${item.qty}|"${item.location}"|${formattedUnitPrice}|${formattedTotal}\n`;
@@ -201,7 +208,10 @@ export class CargoManifestWriterComponent implements OnInit {
 
     csv += `Grand Total:|${grandTotal.toLocaleString()}`;
 
-    const filename = `${title.replace(/\s+/g, '_')}_${new Date().toISOString().slice(0, 16).replace(/[:T]/g, '-')}.csv`;
+    const filename = `${title.replace(/\s+/g, '_')}_${new Date()
+      .toISOString()
+      .slice(0, 16)
+      .replace(/[:T]/g, '-')}.csv`;
     this.downloadFile(csv, filename);
     alert('Reminder: This CSV uses the pipe (|) character as delimiter.');
   }
@@ -215,17 +225,19 @@ export class CargoManifestWriterComponent implements OnInit {
       { label: 'Ship Mining', items: this.shipMiningItems },
       { label: 'Handheld and Light Ship Mining', items: this.handMiningItems },
       { label: 'Salvage', items: this.salvageItems },
-      { label: 'Ship Parts', items: this.shipPartsItems }
+      { label: 'Ship Parts', items: this.shipPartsItems },
     ];
 
     let grandTotal = 0;
 
     categories.forEach(({ label, items }) => {
-      const activeItems = items.filter(item => item.qty > 0);
+      const activeItems = items.filter((item) => item.qty > 0);
       if (activeItems.length > 0) {
         content += `${label}:\n`;
-        activeItems.forEach(item => {
-          content += `${item.item}, Qty: ${item.qty}, Location: ${item.location}, Unit Price: ${item.unitPrice.toLocaleString()}, Total: ${item.total.toLocaleString()}\n`;
+        activeItems.forEach((item) => {
+          content += `${item.item}, Qty: ${item.qty}, Location: ${
+            item.location
+          }, Unit Price: ${item.unitPrice.toLocaleString()}, Total: ${item.total.toLocaleString()}\n`;
           grandTotal += item.total;
         });
         content += '\n';
@@ -234,7 +246,10 @@ export class CargoManifestWriterComponent implements OnInit {
 
     content += `Grand Total: ${grandTotal.toLocaleString()} aUEC\n`;
 
-    const filename = `${title.replace(/\s+/g, '_')}_${new Date().toISOString().slice(0, 16).replace(/[:T]/g, '-')}.txt`;
+    const filename = `${title.replace(/\s+/g, '_')}_${new Date()
+      .toISOString()
+      .slice(0, 16)
+      .replace(/[:T]/g, '-')}.txt`;
     this.downloadFile(content, filename);
   }
 
@@ -246,17 +261,19 @@ export class CargoManifestWriterComponent implements OnInit {
       { label: 'Ship Mining', items: this.shipMiningItems },
       { label: 'Handheld and Light Ship Mining', items: this.handMiningItems },
       { label: 'Salvage', items: this.salvageItems },
-      { label: 'Ship Parts', items: this.shipPartsItems }
+      { label: 'Ship Parts', items: this.shipPartsItems },
     ];
 
     let grandTotal = 0;
 
     categories.forEach(({ label, items }) => {
-      const activeItems = items.filter(item => item.qty > 0);
+      const activeItems = items.filter((item) => item.qty > 0);
       if (activeItems.length > 0) {
         textToCopy += `${label}:\n`;
-        activeItems.forEach(item => {
-          textToCopy += `${item.item}, Qty: ${item.qty}, Location: ${item.location}, Unit Price: ${item.unitPrice.toLocaleString()}, Total: ${item.total.toLocaleString()}\n`;
+        activeItems.forEach((item) => {
+          textToCopy += `${item.item}, Qty: ${item.qty}, Location: ${
+            item.location
+          }, Unit Price: ${item.unitPrice.toLocaleString()}, Total: ${item.total.toLocaleString()}\n`;
           grandTotal += item.total;
         });
         textToCopy += '\n';
@@ -266,11 +283,14 @@ export class CargoManifestWriterComponent implements OnInit {
     textToCopy += `Grand Total: ${grandTotal.toLocaleString()} aUEC\n`;
 
     if (navigator.clipboard && window.isSecureContext) {
-      navigator.clipboard.writeText(textToCopy).then(() => {
-        alert('Manifest copied to clipboard!');
-      }).catch(() => {
-        this.fallbackClipboardCopy(textToCopy);
-      });
+      navigator.clipboard
+        .writeText(textToCopy)
+        .then(() => {
+          alert('Manifest copied to clipboard!');
+        })
+        .catch(() => {
+          this.fallbackClipboardCopy(textToCopy);
+        });
     } else {
       this.fallbackClipboardCopy(textToCopy);
     }
@@ -313,27 +333,31 @@ export class CargoManifestWriterComponent implements OnInit {
       { id: 'Ship Mining', items: this.shipMiningItems },
       { id: 'Handheld and Light Ship Mining', items: this.handMiningItems },
       { id: 'Salvage', items: this.salvageItems },
-      { id: 'Ship Parts', items: this.shipPartsItems }
+      { id: 'Ship Parts', items: this.shipPartsItems },
     ];
 
     const manifestData: SavedManifest = {
       title: title,
       dateSaved: dateSaved,
-      categories: categories.map(cat => ({
+      categories: categories.map((cat) => ({
         category: cat.id,
-        items: cat.items.filter(item => item.qty > 0).map(item => ({
-          item: item.item,
-          qty: item.qty,
-          location: item.location,
-          scuType: item.scuType,
-          unitPrice: item.unitPrice,
-          total: item.total
-        }))
-      }))
+        items: cat.items
+          .filter((item) => item.qty > 0)
+          .map((item) => ({
+            item: item.item,
+            qty: item.qty,
+            location: item.location,
+            scuType: item.scuType,
+            unitPrice: item.unitPrice,
+            total: item.total,
+          })),
+      })),
     };
 
-    const savedManifests: SavedManifests = JSON.parse(localStorage.getItem('cargoManifestData') || '{}');
-    
+    const savedManifests: SavedManifests = JSON.parse(
+      localStorage.getItem('cargoManifestData') || '{}'
+    );
+
     let key = this.currentManifestKey;
     if (!key || startNew) {
       key = 'manifest_' + Date.now();
@@ -353,16 +377,17 @@ export class CargoManifestWriterComponent implements OnInit {
     this.manifestTitle = '';
     this.manifestTitleDisplay = 'Cargo Manifest Writer';
     this.currentManifestKey = '';
-    
+
     // Reset all quantities
-    [this.shipMiningItems, this.handMiningItems, this.salvageItems, this.shipPartsItems]
-      .forEach(items => {
-        items.forEach(item => {
+    [this.shipMiningItems, this.handMiningItems, this.salvageItems, this.shipPartsItems].forEach(
+      (items) => {
+        items.forEach((item) => {
           item.qty = 0;
           item.total = 0;
         });
-      });
-    
+      }
+    );
+
     this.updateGrandTotal();
     localStorage.removeItem('currentManifestKey');
   }
@@ -385,8 +410,10 @@ export class CargoManifestWriterComponent implements OnInit {
   }
 
   getSavedManifests(): { key: string; manifest: SavedManifest }[] {
-    const savedManifests: SavedManifests = JSON.parse(localStorage.getItem('cargoManifestData') || '{}');
-    return Object.keys(savedManifests).map(key => ({ key, manifest: savedManifests[key] }));
+    const savedManifests: SavedManifests = JSON.parse(
+      localStorage.getItem('cargoManifestData') || '{}'
+    );
+    return Object.keys(savedManifests).map((key) => ({ key, manifest: savedManifests[key] }));
   }
 
   loadManifest(manifest: SavedManifest, key: string) {
@@ -395,18 +422,19 @@ export class CargoManifestWriterComponent implements OnInit {
     this.manifestTitleDisplay = manifest.title;
 
     // Reset all items
-    [this.shipMiningItems, this.handMiningItems, this.salvageItems, this.shipPartsItems]
-      .forEach(items => {
-        items.forEach(item => {
+    [this.shipMiningItems, this.handMiningItems, this.salvageItems, this.shipPartsItems].forEach(
+      (items) => {
+        items.forEach((item) => {
           item.qty = 0;
           item.total = 0;
         });
-      });
+      }
+    );
 
     // Load saved data
-    manifest.categories.forEach(categoryData => {
+    manifest.categories.forEach((categoryData) => {
       let targetItems: CargoItem[] = [];
-      
+
       switch (categoryData.category) {
         case 'Ship Mining':
           targetItems = this.shipMiningItems;
@@ -422,8 +450,8 @@ export class CargoManifestWriterComponent implements OnInit {
           break;
       }
 
-      categoryData.items.forEach(savedItem => {
-        const targetItem = targetItems.find(item => item.item === savedItem.item);
+      categoryData.items.forEach((savedItem) => {
+        const targetItem = targetItems.find((item) => item.item === savedItem.item);
         if (targetItem) {
           targetItem.qty = savedItem.qty;
           targetItem.location = savedItem.location;
@@ -439,7 +467,9 @@ export class CargoManifestWriterComponent implements OnInit {
 
   deleteManifest(key: string, manifestTitle: string) {
     if (confirm(`Delete manifest "${manifestTitle}"?`)) {
-      const savedManifests: SavedManifests = JSON.parse(localStorage.getItem('cargoManifestData') || '{}');
+      const savedManifests: SavedManifests = JSON.parse(
+        localStorage.getItem('cargoManifestData') || '{}'
+      );
       delete savedManifests[key];
       localStorage.setItem('cargoManifestData', JSON.stringify(savedManifests));
     }
