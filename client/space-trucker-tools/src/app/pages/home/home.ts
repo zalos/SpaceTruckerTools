@@ -10,22 +10,22 @@ interface Announcement {
   selector: 'app-home',
   imports: [RouterLink],
   templateUrl: './home.html',
-  styleUrl: './home.scss'
+  styleUrl: './home.scss',
 })
 export class Home {
   announcements: Announcement[] = [
     {
-      title: "Welcome!",
-      body: "This is a work in progress, make suggestions if you know me."
+      title: 'Welcome!',
+      body: 'This is a work in progress, make suggestions if you know me.',
     },
     {
-      title: "New Features Coming",
-      body: "Loading teams, importing manifests, and exporting to discord coming soon!"
+      title: 'New Features Coming',
+      body: 'Loading teams, importing manifests, and exporting to discord coming soon!',
     },
     {
-      title: "Did You Know?",
-      body: "You can now export your manifest as TXT or CSV."
-    }
+      title: 'Did You Know?',
+      body: 'You can now export your manifest as TXT or CSV.',
+    },
   ];
 
   currentIndex = 0;
@@ -39,7 +39,8 @@ export class Home {
   }
 
   prevAnnouncement(): void {
-    this.currentIndex = (this.currentIndex - 1 + this.announcements.length) % this.announcements.length;
+    this.currentIndex =
+      (this.currentIndex - 1 + this.announcements.length) % this.announcements.length;
   }
 
   closeAnnouncement(): void {

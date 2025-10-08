@@ -17,5 +17,5 @@ export const routes: Routes = [
   { path: 'scavenger', component: Scavenger },
   { path: 'aarons-jump-data', component: AaronsJumpData },
   { path: 'profile', component: Profile },
-  { path: '**', redirectTo: '' } // wildcard route for 404 page
+  { path: '**', redirectTo: '' }, // wildcard route for 404 page
 ];

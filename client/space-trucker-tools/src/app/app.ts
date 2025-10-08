@@ -6,7 +6,7 @@ import { Navigation } from './components/navigation/navigation';
   selector: 'app-root',
   imports: [RouterOutlet, Navigation],
   templateUrl: './app.html',
-  styleUrl: './app.scss'
+  styleUrl: './app.scss',
 })
 export class App {
   protected readonly title = signal('space-trucker-tools');

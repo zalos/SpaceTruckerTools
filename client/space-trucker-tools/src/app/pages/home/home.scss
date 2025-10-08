@@ -41,7 +41,7 @@
   cursor: pointer;
   transition: background-color 0.3s ease;
   color: white;
-  box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -57,7 +57,7 @@
   height: 80px;
   object-fit: contain;
   margin-bottom: 12px;
-  filter: drop-shadow(1px 1px 1px rgba(0,0,0,0.7));
+  filter: drop-shadow(1px 1px 1px rgba(0, 0, 0, 0.7));
 }
 
 .app-button .title {
@@ -81,7 +81,7 @@
   display: flex;
   gap: 20px;
   align-items: center;
-  box-shadow: 0 4px 10px rgba(0,0,0,0.5);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
 }
 
 .info-box img {
@@ -90,7 +90,7 @@
   object-fit: contain;
   border-radius: 10px;
   flex-shrink: 0;
-  filter: drop-shadow(2px 2px 3px rgba(0,0,0,0.7));
+  filter: drop-shadow(2px 2px 3px rgba(0, 0, 0, 0.7));
 }
 
 .info-box .text-content {
@@ -173,7 +173,7 @@
 :host {
   font-family: Arial, sans-serif;
   background-color: #111;
-  background-image: url("/assets/SpacestationBackground.png");
+  background-image: url('/assets/SpacestationBackground.png');
   background-size: cover;
   background-position: center;
   background-attachment: fixed;
