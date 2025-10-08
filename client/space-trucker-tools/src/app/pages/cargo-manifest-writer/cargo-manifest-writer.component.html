@@ -1,0 +1,358 @@
+<div class="container">
+  <h1 id="manifestTitleDisplay">{{ manifestTitleDisplay }}</h1>
+  <input 
+    type="text" 
+    id="manifestTitle" 
+    placeholder="Enter manifest title..." 
+    [(ngModel)]="manifestTitle"
+    (input)="onTitleChange()"
+  />
+
+  <details open>
+    <summary>Ship Mining</summary>
+    <table>
+      <thead>
+        <tr>
+          <th>Item</th>
+          <th>Quantity</th>
+          <th>Location</th>
+          <th>Unit Price<br>(choose size)</th>
+          <th>Total</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr 
+          *ngFor="let item of shipMiningItems" 
+          [style.background-color]="getItemColor(item.item)"
+        >
+          <td>
+            <span class="highlighted-text">{{ item.item }}</span>
+          </td>
+          <td>
+            <input 
+              type="number" 
+              min="0" 
+              [(ngModel)]="item.qty"
+              (input)="onItemChange(item, 'Ship Mining')"
+              style="width: 70px; margin-bottom: 6px;"
+            />
+            <div style="display: flex; flex-wrap: wrap; gap: 4px;">
+              <button 
+                *ngFor="let num of [1, 2, 4, 8, 16, 32]"
+                type="button"
+                (click)="incrementQuantity(item, num, 'Ship Mining')"
+                class="increment-btn"
+              >
+                +{{ num }}
+              </button>
+            </div>
+          </td>
+          <td>
+            <select 
+              [(ngModel)]="item.location"
+              (change)="onItemChange(item, 'Ship Mining')"
+            >
+              <option 
+                *ngFor="let location of getLocations(item, 'Ship Mining')" 
+                [value]="location"
+              >
+                {{ location }}
+              </option>
+            </select>
+          </td>
+          <td>
+            <span class="highlighted-text">{{ item.unitPrice.toLocaleString() }}</span><br>
+            <select 
+              [(ngModel)]="item.scuType"
+              (change)="onItemChange(item, 'Ship Mining')"
+            >
+              <option value="scu">per SCU</option>
+              <option value="cscu">per CSCU</option>
+              <option value="mscu">per MSCU</option>
+            </select>
+          </td>
+          <td>
+            <span class="highlighted-text">{{ item.total.toLocaleString() }}</span>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </details>
+
+  <details open>
+    <summary>Hand Mining</summary>
+    <table>
+      <thead>
+        <tr>
+          <th>Item</th>
+          <th>Quantity</th>
+          <th>Location</th>
+          <th>Unit Price<br>(choose size)</th>
+          <th>Total</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr 
+          *ngFor="let item of handMiningItems" 
+          [style.background-color]="getItemColor(item.item)"
+        >
+          <td>
+            <span class="highlighted-text">{{ item.item }}</span>
+          </td>
+          <td>
+            <input 
+              type="number" 
+              min="0" 
+              [(ngModel)]="item.qty"
+              (input)="onItemChange(item, 'Handheld and Light Ship Mining')"
+              style="width: 70px; margin-bottom: 6px;"
+            />
+            <div style="display: flex; flex-wrap: wrap; gap: 4px;">
+              <button 
+                *ngFor="let num of [1, 2, 4, 8, 16, 32]"
+                type="button"
+                (click)="incrementQuantity(item, num, 'Handheld and Light Ship Mining')"
+                class="increment-btn"
+              >
+                +{{ num }}
+              </button>
+            </div>
+          </td>
+          <td>
+            <select 
+              [(ngModel)]="item.location"
+              (change)="onItemChange(item, 'Handheld and Light Ship Mining')"
+            >
+              <option 
+                *ngFor="let location of getLocations(item, 'Handheld and Light Ship Mining')" 
+                [value]="location"
+              >
+                {{ location }}
+              </option>
+            </select>
+          </td>
+          <td>
+            <span class="highlighted-text">{{ item.unitPrice.toLocaleString() }}</span><br>
+            <select 
+              [(ngModel)]="item.scuType"
+              (change)="onItemChange(item, 'Handheld and Light Ship Mining')"
+            >
+              <option value="scu">per SCU</option>
+              <option value="cscu">per CSCU</option>
+              <option value="mscu">per MSCU</option>
+            </select>
+          </td>
+          <td>
+            <span class="highlighted-text">{{ item.total.toLocaleString() }}</span>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </details>
+
+  <details open>
+    <summary>Salvage</summary>
+    <table>
+      <thead>
+        <tr>
+          <th>Item</th>
+          <th>Quantity</th>
+          <th>Location</th>
+          <th>Unit Price<br>(choose size)</th>
+          <th>Total</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr 
+          *ngFor="let item of salvageItems" 
+          [style.background-color]="getItemColor(item.item)"
+        >
+          <td>
+            <span class="highlighted-text">{{ item.item }}</span>
+          </td>
+          <td>
+            <input 
+              type="number" 
+              min="0" 
+              [(ngModel)]="item.qty"
+              (input)="onItemChange(item, 'Salvage')"
+              style="width: 70px; margin-bottom: 6px;"
+            />
+            <div style="display: flex; flex-wrap: wrap; gap: 4px;">
+              <button 
+                *ngFor="let num of [1, 2, 4, 8, 16, 32]"
+                type="button"
+                (click)="incrementQuantity(item, num, 'Salvage')"
+                class="increment-btn"
+              >
+                +{{ num }}
+              </button>
+            </div>
+          </td>
+          <td>
+            <select 
+              [(ngModel)]="item.location"
+              (change)="onItemChange(item, 'Salvage')"
+            >
+              <option 
+                *ngFor="let location of getLocations(item, 'Salvage')" 
+                [value]="location"
+              >
+                {{ location }}
+              </option>
+            </select>
+          </td>
+          <td>
+            <span class="highlighted-text">{{ item.unitPrice.toLocaleString() }}</span><br>
+            <select 
+              [(ngModel)]="item.scuType"
+              (change)="onItemChange(item, 'Salvage')"
+            >
+              <option value="scu">per SCU</option>
+              <option value="cscu">per CSCU</option>
+              <option value="mscu">per MSCU</option>
+            </select>
+          </td>
+          <td>
+            <span class="highlighted-text">{{ item.total.toLocaleString() }}</span>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </details>
+
+  <details open>
+    <summary>Ship Parts</summary>
+    <table>
+      <thead>
+        <tr>
+          <th>Item</th>
+          <th>Quantity</th>
+          <th>Location</th>
+          <th>Unit Price<br>(choose size)</th>
+          <th>Total</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr 
+          *ngFor="let item of shipPartsItems" 
+          [style.background-color]="getItemColor(item.item)"
+        >
+          <td>
+            <span class="highlighted-text">{{ item.item }}</span>
+          </td>
+          <td>
+            <input 
+              type="number" 
+              min="0" 
+              [(ngModel)]="item.qty"
+              (input)="onItemChange(item, 'Ship Parts')"
+              style="width: 70px; margin-bottom: 6px;"
+            />
+            <div style="display: flex; flex-wrap: wrap; gap: 4px;">
+              <button 
+                *ngFor="let num of [1, 2, 4, 8, 16, 32]"
+                type="button"
+                (click)="incrementQuantity(item, num, 'Ship Parts')"
+                class="increment-btn"
+              >
+                +{{ num }}
+              </button>
+            </div>
+          </td>
+          <td>
+            <select 
+              [(ngModel)]="item.location"
+              (change)="onItemChange(item, 'Ship Parts')"
+            >
+              <option 
+                *ngFor="let location of getLocations(item, 'Ship Parts')" 
+                [value]="location"
+              >
+                {{ location }}
+              </option>
+            </select>
+          </td>
+          <td>
+            <span class="highlighted-text">{{ item.unitPrice.toLocaleString() }}</span><br>
+            <select 
+              [(ngModel)]="item.scuType"
+              (change)="onItemChange(item, 'Ship Parts')"
+            >
+              <option value="scu">per SCU</option>
+              <option value="cscu">per CSCU</option>
+              <option value="mscu">per MSCU</option>
+            </select>
+          </td>
+          <td>
+            <span class="highlighted-text">{{ item.total.toLocaleString() }}</span>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </details>
+
+  <div id="exportBox">
+    <button (click)="exportCSV()">Export CSV</button>
+    <button (click)="exportTXT()">Export TXT</button>
+    <button (click)="copyToClipboard()">Copy to Clipboard</button>
+    <button (click)="saveManifestToLocalStorage()">Save Manifest</button>
+    <button (click)="saveManifestToLocalStorage(true)">Start New Manifest</button>
+    <button (click)="openSavedManifestsModal()">View Saved Manifests</button>
+    <button (click)="openWorkOrdersModal()">Open Work Orders</button>
+    <div id="grandTotalDisplay">Total: {{ grandTotal.toLocaleString() }} aUEC</div>
+    <div id="lastSaved" *ngIf="lastSaved">{{ lastSaved }}</div>
+  </div>
+</div>
+
+<!-- Work Orders Modal -->
+<div id="workOrdersModal" class="modal" [style.display]="showWorkOrdersModal ? 'block' : 'none'">
+  <div class="modal-content">
+    <span class="close" (click)="closeWorkOrdersModal()">&times;</span>
+    <iframe 
+      id="workOrdersFrame" 
+      src="/workorders-overview" 
+      frameborder="0"
+      style="flex: 1; width: 100%; border: none; border-radius: 0 0 12px 12px;"
+    ></iframe>
+  </div>
+</div>
+
+<!-- Saved Manifests Modal -->
+<div id="savedManifestsModal" class="modal" [style.display]="showSavedManifestsModal ? 'block' : 'none'">
+  <div class="modal-content">
+    <span class="close" (click)="closeSavedManifestsModal()">&times;</span>
+    <h2 style="color:white; text-align:center; margin-top:1rem;">Saved Cargo Manifests</h2>
+    <div style="padding:1rem; overflow-y:auto; flex:1;">
+      <div *ngIf="getSavedManifests().length === 0" style="color:white;">
+        No saved manifests found.
+      </div>
+      <div 
+        *ngFor="let saved of getSavedManifests()" 
+        style="background-color: #222; color: white; padding: 0.5rem; margin-bottom: 0.3rem; border-radius: 6px; display: flex; justify-content: space-between; align-items: center;"
+      >
+        <div>
+          <strong>{{ saved.manifest.title }}</strong><br>
+          <small>{{ saved.manifest.dateSaved }}</small>
+        </div>
+        <div>
+          <button 
+            (click)="loadManifest(saved.manifest, saved.key)"
+            style="margin-right: 4px;"
+          >
+            Load
+          </button>
+          <button 
+            (click)="deleteManifest(saved.key, saved.manifest.title)"
+            style="background-color: #900; color: white;"
+          >
+            Delete
+          </button>
+        </div>
+      </div>
+    </div>
+    <div style="text-align:center; padding:1rem;">
+      <button (click)="closeSavedManifestsModal()">Close</button>
+    </div>
+  </div>
+</div>
