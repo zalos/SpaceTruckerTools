@@ -1,4 +1,35 @@
-# Space Trucker Tools - Angular Conversion Project
+# Space Trucker To### Item Lookup Page Conversion ✨ **NEW**
+
+- [x] Created ItemLookupComponent with Angular CLI structure
+- [x] Converted `ItemLookup.html` to Angular template
+- [x] Implemented API testing functionality for Regolith and UEX APIs
+- [x] Converted JavaScript functionality to TypeScript component methods:
+  - [x] Regolith Profile API fetch with localStorage integration
+  - [x] UEX Item Prices API fetch with authentication
+  - [x] Error handling and display
+  - [x] HTML result rendering with Angular's innerHTML binding
+- [x] Converted original CSS to component-scoped SCSS with responsive design
+- [x] Added routing configuration for ItemLookupComponent
+- [x] Added navigation link for "WIP Item Lookup"
+- [x] Verified Item Lookup page functionality at http://localhost:4200/item-lookup
+
+### Profit Splitter Page Conversion ✨ **NEW**
+
+- [x] Converted `ProfitSplitter.html` to Angular ProfitSplitterComponent
+- [x] Created TypeScript interfaces for Player, Expense, CompletedOrder, and CalculatedEntry
+- [x] Implemented dynamic player management with Angular arrays and \*ngFor
+- [x] Converted complex JavaScript calculations to TypeScript component methods:
+  - [x] Real-time profit calculations with multiple split types (flat, percent, share)
+  - [x] Tax calculations (5% tax handling)
+  - [x] Expense tracking per player with add/remove functionality
+  - [x] Work orders integration from localStorage with selection toggles
+  - [x] Post-expense profit and accounting buffer calculations
+  - [x] Itemized breakdown table generation
+- [x] Implemented export functionality (CSV, TXT, clipboard)
+- [x] Added two-way data binding with FormsModule for all form inputs
+- [x] Converted original CSS to component-scoped SCSS with responsive design
+- [x] Fixed routing configuration to use ProfitSplitterComponent
+- [x] Verified Profit Splitter page functionality at http://localhost:4200/profit-splitterConversion Project
 
 ## Project Over### Aaron's Jump Data Page Conversion ✨ **NEW**
 

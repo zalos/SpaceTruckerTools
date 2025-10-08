@@ -1,4 +1,120 @@
-<div class="placeholder-page">
+<!-- Profit Splitter - Angular Conversion -->
+<div class="container">
   <h1>Profit Splitter</h1>
-  <p>🚧 This page is under construction and will be converted from the original HTML version.</p>
+
+  <div class="workorders-section">
+    <h2>Completed Work Orders</h2>
+    <div id="workordersList">
+      <p class="small" *ngIf="!completedOrders.length">No completed work orders found.</p>
+      <button
+        *ngFor="let order of completedOrders"
+        class="btn"
+        [class.selected]="selectedOrders.has(order.key)"
+        (click)="toggleOrder(order)"
+      >
+        {{ order.title }} - {{ order.grandTotal }} aUEC
+      </button>
+    </div>
+  </div>
+
+  <div class="input-section">
+    <label
+      >Title:
+      <input type="text" [(ngModel)]="splitTitle" placeholder="Mission Name" />
+    </label>
+    <label
+      >Total Profit:
+      <input type="number" [(ngModel)]="totalProfit" (input)="updateCalculations()" />
+    </label>
+  </div>
+
+  <div id="players">
+    <div *ngFor="let player of players; let i = index" class="player" [attr.data-player-index]="i">
+      <div class="flex-row">
+        <label
+          >Player Name:
+          <input type="text" [(ngModel)]="player.name" (input)="updateCalculations()" />
+        </label>
+        <label
+          >Split Type:
+          <select [(ngModel)]="player.splitType" (change)="updateCalculations()">
+            <option value="flat">Flat</option>
+            <option value="percent">Percent</option>
+            <option value="share">Share</option>
+          </select>
+        </label>
+        <label
+          >Value:
+          <input type="number" [(ngModel)]="player.value" (input)="updateCalculations()" />
+        </label>
+        <label>
+          <input type="checkbox" [(ngModel)]="player.taxed" (change)="updateCalculations()" />
+          Receives Money (5% Tax)
+        </label>
+        <button class="btn" (click)="addExpense(i)">+ Add Expense</button>
+        <button class="btn" (click)="removePlayer(i)" *ngIf="players.length > 1">✖ Remove</button>
+      </div>
+      <div class="expenses">
+        <div *ngFor="let expense of player.expenses; let j = index" class="expenseRow">
+          <label
+            >Label:
+            <input type="text" [(ngModel)]="expense.label" (input)="updateCalculations()" />
+          </label>
+          <label
+            >Amount:
+            <input type="number" [(ngModel)]="expense.value" (input)="updateCalculations()" />
+          </label>
+          <button class="btn" (click)="removeExpense(i, j)">✖</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <button class="btn" (click)="addPlayer()">+ Add Player</button>
+
+  <h2>Summary</h2>
+  <div class="summary">
+    <p>
+      <strong>Post-Expense Profit:</strong>
+      <span id="postExpensesProfit">{{ postExpensesProfit | number : '1.2-2' }}</span>
+    </p>
+    <p>
+      <strong>Accounting Buffer (Auto):</strong>
+      <span id="accountingBuffer">{{ accountingBuffer | number : '1.2-2' }}</span>
+    </p>
+    <p>
+      <strong>Remaining Pool After All Deductions:</strong>
+      <span id="remainingPool">{{ remainingPool | number : '1.2-2' }}</span>
+    </p>
+  </div>
+
+  <h2>Itemized Breakdown</h2>
+  <table id="outputTable">
+    <thead>
+      <tr>
+        <th>Player</th>
+        <th>Type</th>
+        <th>Value</th>
+        <th>Expenses</th>
+        <th>Tax (5%)</th>
+        <th>Final Payout</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let entry of calculatedEntries">
+        <td>{{ entry.name }}</td>
+        <td>{{ entry.type }}</td>
+        <td>{{ entry.value }}</td>
+        <td>{{ entry.expenseTotal | number : '1.2-2' }}</td>
+        <td>{{ entry.taxAmount | number : '1.2-2' }}</td>
+        <td>{{ entry.finalPayout | number : '1.2-2' }}</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="export-buttons">
+    <button class="btn" (click)="exportTable('csv')">Export as CSV</button>
+    <button class="btn" (click)="exportTable('txt')">Export as TXT</button>
+    <button class="btn" (click)="copyTable()">Copy to Clipboard</button>
+  </div>
 </div>
