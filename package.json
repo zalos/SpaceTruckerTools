@@ -2,13 +2,20 @@
   "name": "space-trucker-tools",
   "version": "1.0.0",
   "main": "server.js",
-  
   "scripts": {
-    "start": "node server.js"
+    "start": "node server.js",
+    "client": "cd client/space-trucker-tools && npm start",
+    "client:build": "cd client/space-trucker-tools && npm run build",
+    "client:install": "cd client/space-trucker-tools && npm install",
+    "dev": "concurrently \"npm start\" \"npm run client\"",
+    "build": "npm run client:build"
   },
   "dependencies": {
     "cors": "^2.8.5",
     "express": "^4.19.2",
     "node-fetch": "^2.6.7"
+  },
+  "devDependencies": {
+    "concurrently": "^9.2.1"
   }
 }

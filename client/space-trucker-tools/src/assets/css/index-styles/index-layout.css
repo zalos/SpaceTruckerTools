@@ -1,0 +1,36 @@
+.container {
+  flex: none;
+  max-width: 900px;
+  margin: 0;
+  background-color: rgba(0, 0, 0, 0.75);
+  padding: 2rem;
+  border-radius: 12px;
+  width: 90%;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+}
+
+.page-wrapper {
+  display: flex;
+  gap: 20px;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+body {
+  font-family: Arial, sans-serif;
+  background-color: #111;
+  background-image: url('/imgs/SpacestationBackground.png');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  color: white;
+  margin: 0;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-height: 100vh;
+  gap: 30px;
+}
