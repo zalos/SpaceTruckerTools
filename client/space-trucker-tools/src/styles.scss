@@ -3,6 +3,10 @@
 /* Global styles */
 body {
   background-color: #111;
+  background-image: url('/assets/SpacestationBackground.png');
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
   color: white;
   font-family: Arial, sans-serif;
   margin: 0;

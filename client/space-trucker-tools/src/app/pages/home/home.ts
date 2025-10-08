@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { RouterLink } from '@angular/router';
 
 interface Announcement {
@@ -12,7 +12,9 @@ interface Announcement {
   templateUrl: './home.html',
   styleUrl: './home.scss',
 })
-export class Home {
+export class Home implements OnInit, OnDestroy {
+  private originalBackground: string = '';
+
   announcements: Announcement[] = [
     {
       title: 'Welcome!',
@@ -27,6 +29,17 @@ export class Home {
       body: 'You can now export your manifest as TXT or CSV.',
     },
   ];
+
+  ngOnInit() {
+    // Store original background and set home page background
+    this.originalBackground = document.body.style.backgroundImage;
+    document.body.style.backgroundImage = "url('/assets/SpacestationBackground.png')";
+  }
+
+  ngOnDestroy() {
+    // Restore original background
+    document.body.style.backgroundImage = this.originalBackground;
+  }
 
   currentIndex = 0;
 

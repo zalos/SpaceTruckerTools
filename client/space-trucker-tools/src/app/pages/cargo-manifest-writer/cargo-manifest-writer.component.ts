@@ -1,4 +1,4 @@
-import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
+import { Component, OnInit, OnDestroy, ChangeDetectorRef } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 
@@ -55,7 +55,8 @@ interface SavedManifests {
   templateUrl: './cargo-manifest-writer.component.html',
   styleUrls: ['./cargo-manifest-writer.component.scss'],
 })
-export class CargoManifestWriterComponent implements OnInit {
+export class CargoManifestWriterComponent implements OnInit, OnDestroy {
+  private originalBackground: string = '';
   manifestTitle = '';
   manifestTitleDisplay = 'Cargo Manifest Writer';
   grandTotal = 0;
@@ -79,7 +80,16 @@ export class CargoManifestWriterComponent implements OnInit {
   constructor(private cdr: ChangeDetectorRef) {}
 
   ngOnInit() {
+    // Store original background and set cargo page background
+    this.originalBackground = document.body.style.backgroundImage;
+    document.body.style.backgroundImage = "url('/assets/CargoBackground.png')";
+
     this.loadItemData();
+  }
+
+  ngOnDestroy() {
+    // Restore original background
+    document.body.style.backgroundImage = this.originalBackground;
   }
 
   private async loadItemData() {

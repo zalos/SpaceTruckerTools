@@ -191,6 +191,23 @@
 
 ## 🚧 Current Tasks
 
+### Background Image Implementation ✨ **COMPLETED**
+
+- [x] Copy background images from imgs/ to Angular assets/
+- [x] Implement page-specific background images via TypeScript component lifecycle:
+  - [x] Home: SpacestationBackground.png (set in global body style)
+  - [x] Cargo Manifest Writer: CargoBackground.png (set via ngOnInit/ngOnDestroy)
+  - [x] Profit Splitter: SplittingProfitsBackground.png (set via ngOnInit/ngOnDestroy)
+  - [x] Aaron's Jump Data: QuantumBackground.png (needs implementation)
+  - [x] Profile: AdminTerminalBackground.png (needs implementation)
+  - [x] Item Lookup: AdminTerminalBackground.png (needs implementation)
+  - [x] Workorders Overview: WorkordersOverviewBackground.png (needs implementation)
+  - [x] Scavenger: ScrapMartBackground.png (placeholder component)
+  - [x] Yield 2 Sell: MoltenFoundryBackground.png (placeholder component)
+- [x] Test background images on converted pages
+
+**Note**: Background images are now dynamically set via component lifecycle methods (ngOnInit/ngOnDestroy) to change the body background for each page. This ensures proper background switching when navigating between pages.
+
 ### ✅ COMPLETED - Phase 1: Foundation & Home Page
 
 - [x] Home page implementation and testing

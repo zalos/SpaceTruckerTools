@@ -1,5 +1,16 @@
 // Profile Component Styles - Converted from original HTML
 
+:host {
+  display: block;
+  min-height: 100vh;
+  background-image: url('/assets/AdminTerminalBackground.png');
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-position: center;
+  color: white;
+}
+
 .container {
   background-color: rgba(0, 0, 0, 0.75);
   padding: 2rem;

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 
@@ -37,7 +37,8 @@ interface CalculatedEntry {
   templateUrl: './profit-splitter.html',
   styleUrls: ['./profit-splitter.scss'],
 })
-export class ProfitSplitterComponent implements OnInit {
+export class ProfitSplitterComponent implements OnInit, OnDestroy {
+  private originalBackground: string = '';
   splitTitle = '';
   totalProfit = 0;
   players: Player[] = [];
@@ -51,8 +52,17 @@ export class ProfitSplitterComponent implements OnInit {
   calculatedEntries: CalculatedEntry[] = [];
 
   ngOnInit() {
+    // Store original background and set profit splitter page background
+    this.originalBackground = document.body.style.backgroundImage;
+    document.body.style.backgroundImage = "url('/assets/SplittingProfitsBackground.png')";
+
     this.loadCompletedOrders();
     this.addPlayer();
+  }
+
+  ngOnDestroy() {
+    // Restore original background
+    document.body.style.backgroundImage = this.originalBackground;
   }
 
   addPlayer() {

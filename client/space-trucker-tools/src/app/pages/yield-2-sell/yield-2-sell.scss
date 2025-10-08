@@ -1,0 +1,28 @@
+// Yield 2 Sell Component Styles - Placeholder
+
+:host {
+  display: block;
+  min-height: 100vh;
+  background-image: url('/assets/MoltenFoundryBackground.png');
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-position: center;
+  color: white;
+}
+
+.container {
+  background-color: rgba(0, 0, 0, 0.75);
+  padding: 2rem;
+  border-radius: 12px;
+  max-width: 700px;
+  width: 90%;
+  margin: 2rem auto;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+}
+
+h1 {
+  text-align: center;
+  color: gold;
+  margin-bottom: 1rem;
+}

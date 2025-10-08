@@ -1,5 +1,16 @@
 // Workorders Overview Component Styles - Converted from original CSS files
 
+:host {
+  display: block;
+  min-height: 100vh;
+  background-image: url('/assets/WorkordersOverviewBackground.png');
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-position: center;
+  color: white;
+}
+
 .main-container {
   background-color: rgba(0, 0, 0, 0.75);
   padding: 2rem;
