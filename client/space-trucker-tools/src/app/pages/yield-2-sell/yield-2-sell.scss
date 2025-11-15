@@ -1,28 +1,200 @@
-// Yield 2 Sell Component Styles - Placeholder
-
 :host {
   display: block;
   min-height: 100vh;
-  background-image: url('/assets/MoltenFoundryBackground.png');
-  background-size: cover;
-  background-repeat: no-repeat;
-  background-attachment: fixed;
-  background-position: center;
-  color: white;
+  background: url('/assets/MoltenFoundryBackground.png') center / cover fixed no-repeat;
+  color: #fff;
 }
 
-.container {
-  background-color: rgba(0, 0, 0, 0.75);
-  padding: 2rem;
-  border-radius: 12px;
-  max-width: 700px;
-  width: 90%;
-  margin: 2rem auto;
-  box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+.yield-page {
+  padding: 2rem clamp(1rem, 3vw, 3rem);
+}
+
+.panel {
+  background-color: rgba(7, 7, 7, 0.85);
+  border: 1px solid rgba(255, 215, 0, 0.3);
+  border-radius: 16px;
+  padding: clamp(1rem, 2vw, 2rem);
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.6);
+  backdrop-filter: blur(6px);
 }
 
 h1 {
   text-align: center;
-  color: gold;
+  color: #ffd700;
+  margin-bottom: 1.5rem;
+  letter-spacing: 0.05em;
+}
+
+.refinery-form {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+.refinery-form label {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+  font-size: 0.9rem;
+  color: #f0eada;
+}
+
+.refinery-form input,
+.refinery-form select {
+  background-color: rgba(17, 17, 17, 0.9);
+  border: 1px solid #555;
+  border-radius: 6px;
+  padding: 0.45rem 0.75rem;
+  color: #fff;
+  font-size: 1rem;
+}
+
+.refinery-form input:focus,
+.refinery-form select:focus {
+  outline: 2px solid #ffd700;
+}
+
+.refinery-form .full-width {
+  grid-column: 1 / -1;
+}
+
+.order-ready {
+  grid-column: 1 / -1;
+  text-align: center;
+  color: #ffd700;
+  font-weight: 600;
+  padding: 0.5rem;
+  border: 1px solid rgba(255, 215, 0, 0.4);
+  border-radius: 8px;
+  background-color: rgba(255, 255, 255, 0.05);
+}
+
+.order-ready span {
+  color: #9cff9c;
+  margin-left: 0.25rem;
+}
+
+.table-wrapper {
+  overflow-x: auto;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: 12px;
   margin-bottom: 1rem;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  min-width: 720px;
+}
+
+th,
+td {
+  padding: 0.75rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  text-align: left;
+}
+
+th {
+  background-color: rgba(255, 215, 0, 0.1);
+  color: #ffd700;
+  font-weight: 600;
+}
+
+tbody tr:nth-child(even) {
+  background-color: rgba(255, 255, 255, 0.03);
+}
+
+tbody tr:hover {
+  background-color: rgba(255, 255, 255, 0.08);
+}
+
+td input,
+td select {
+  width: 100%;
+  background-color: rgba(17, 17, 17, 0.9);
+  border: 1px solid #444;
+  border-radius: 6px;
+  padding: 0.35rem 0.5rem;
+  color: #fff;
+  font-size: 0.95rem;
+}
+
+.row-total {
+  color: #9cff9c;
+  font-weight: 600;
+}
+
+.loading-state {
+  text-align: center;
+  color: #ccc;
+  padding: 2rem 0;
+}
+
+.total-display {
+  text-align: center;
+  font-size: 1.25rem;
+  color: #ffd700;
+  margin-bottom: 1.5rem;
+  font-weight: 600;
+}
+
+.notice {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  margin-bottom: 1rem;
+  padding: 0.75rem 1rem;
+  border-radius: 10px;
+  background-color: rgba(0, 71, 179, 0.3);
+  border: 1px solid rgba(86, 172, 255, 0.6);
+  color: #e6f2ff;
+}
+
+.notice.error {
+  background-color: rgba(120, 0, 0, 0.35);
+  border-color: rgba(255, 87, 87, 0.7);
+  color: #ffe1e1;
+}
+
+.action-row,
+.modal-row {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+  flex-wrap: wrap;
+  margin-bottom: 1rem;
+}
+
+button {
+  background: linear-gradient(145deg, #2d2d2d, #1a1a1a);
+  border: 1px solid rgba(255, 215, 0, 0.4);
+  color: #fff;
+  padding: 0.55rem 1.5rem;
+  border-radius: 999px;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  cursor: pointer;
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+
+button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.35);
+}
+
+button:active {
+  transform: translateY(0);
+}
+
+button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  box-shadow: none;
+}
+
+.error-state {
+  text-align: center;
+  color: #ff9b9b;
+  margin: 1rem 0;
 }

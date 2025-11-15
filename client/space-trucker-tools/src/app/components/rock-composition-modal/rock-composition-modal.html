@@ -1,0 +1,85 @@
+<div class="modal-backdrop" *ngIf="open">
+  <div class="modal-card">
+    <div class="header">
+      <h2>Rock Composition</h2>
+      <div class="header-actions">
+        <button type="button" class="action" (click)="saveComposition()">Save Composition</button>
+        <button type="button" class="close" (click)="close()">&times;</button>
+      </div>
+    </div>
+
+    <div class="inputs">
+      <label>
+        Rock Size (SCU)
+        <input type="number" min="0" [(ngModel)]="rockSize" />
+      </label>
+      <label>
+        Inert Material Filtering (%)
+        <input type="number" min="0" max="100" [(ngModel)]="inertFilter" />
+      </label>
+    </div>
+
+    <div class="materials">
+      <div class="material-row" *ngFor="let material of materials; let i = index">
+        <input
+          type="text"
+          placeholder="Material"
+          [ngModel]="material.name"
+          (ngModelChange)="updateMaterial(i, 'name', $event)"
+        />
+        <input
+          type="number"
+          placeholder="%"
+          [ngModel]="material.percentage"
+          (ngModelChange)="updateMaterial(i, 'percentage', $event)"
+        />
+        <button type="button" class="remove" (click)="removeMaterial(i)">&times;</button>
+      </div>
+      <button type="button" class="add" (click)="addMaterial()">Add Material</button>
+    </div>
+
+    <table>
+      <thead>
+        <tr>
+          <th>Material</th>
+          <th>Percentage (%)</th>
+          <th>SCU</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let row of compositionRows">
+          <td>{{ row.name }}</td>
+          <td>{{ row.percentage | number: '1.0-2' }}</td>
+          <td>{{ row.scu | number: '1.0-2' }}</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <section class="saved" *ngIf="snapshots?.length">
+      <h3>Saved Compositions</h3>
+      <article class="snapshot" *ngFor="let snapshot of snapshots">
+        <header>
+          <div>
+            <strong>Size:</strong> {{ snapshot.rockSize }} SCU
+            <span class="muted">&mdash; Saved {{ snapshot.savedAt | date: 'medium' }}</span>
+          </div>
+          <button type="button" class="remove" (click)="removeSnapshot(snapshot.id)">&times;</button>
+        </header>
+        <table>
+          <thead>
+            <tr>
+              <th>Material</th>
+              <th>Percentage (%)</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let material of snapshot.materials">
+              <td>{{ material.name }}</td>
+              <td>{{ material.percentage | number: '1.0-2' }}</td>
+            </tr>
+          </tbody>
+        </table>
+      </article>
+    </section>
+  </div>
+</div>

@@ -62,6 +62,14 @@
 - [x] Added navigation link for "WIP Item Lookup"
 - [x] Verified Item Lookup page functionality at http://localhost:4200/item-lookupg a plain HTML/JS/CSS application to Angular with page components and routing.
 
+### Yield 2 Sell Page Conversion ✨ **NEW**
+
+- [x] Converted `Yield2Sell.html` into the standalone `Yield2Sell` Angular page with reactive forms and signals
+- [x] Migrated price, color, and jump assets into typed services with retry/error handling for future API swaps
+- [x] Rebuilt the yield table using a `FormArray` source of truth with automatic total recalculation and exports (TXT/CSV/clipboard)
+- [x] Implemented jump-data and rock-composition modals, lifting saved compositions into a parent-managed/localStorage-backed service
+- [x] Added user-facing loading, retry, and notification states to align with BA documentation expectations
+
 ## ✅ Completed Tasks
 
 ### Initial Setup
@@ -255,13 +263,13 @@
   - [ ] Import and integrate JavaScript dependencies
 - [x] **Workorders Overview** - Convert `WorkordersOverview.html` ✅ COMPLETED
 - [x] **Profit Splitter** - Convert `ProfitSplitter.html` ✅ COMPLETED
-- [ ] **Yield 2 Sell** - Convert `Yield2Sell.html`
+- [x] **Yield 2 Sell** - Convert `Yield2Sell.html` ✅ COMPLETED
 - [ ] **Scavenger** - Convert `Scavenger.html`
 - [x] **Aaron's Jump Data** - Convert `AaronsJumpData.html` ✅ COMPLETED
 - [x] **Profile** - Convert `Profile.html` ✅ COMPLETED
 - [x] **Item Lookup** - Convert `ItemLookup.html` ✅ COMPLETED
 
-### 🎉 PHASE 2 PROGRESS: 5 of 8 Pages Converted!
+### 🎉 PHASE 2 PROGRESS: 6 of 8 Pages Converted!
 
 **Completed Pages:**
 
@@ -270,11 +278,11 @@
 3. ✅ Item Lookup - API testing functionality
 4. ✅ Profit Splitter - Complex calculations and financial logic
 5. ✅ Workorders Overview - State management and expandable lists
+6. ✅ Yield 2 Sell - Reactive refinery workflow with export tools and modal persistence
 
 **Remaining Pages:**
 
 - Cargo Manifest Writer (complex)
-- Yield 2 Sell (complex with modals)
 - Scavenger (has WIP overlay)
 
 ### Medium Priority - Component Architecture
@@ -332,6 +340,7 @@
 - RouterLink used instead of href for navigation
 - Original JavaScript functionality needs conversion to TypeScript
 - LocalStorage usage should be wrapped in services
+- Yield 2 Sell rock composition snapshots persist via browser localStorage; non-browser environments surface inline notices when persistence is unavailable
 - Asset paths: use `assets/filename.ext` in HTML, `/assets/filename.ext` in CSS
 - **Development Commands** (from project root):
   - `npm run client` - Start Angular dev server only
@@ -366,4 +375,4 @@
 
 ---
 
-_Last Updated: October 7, 2025_
+_Last Updated: November 15, 2025_

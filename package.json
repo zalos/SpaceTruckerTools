@@ -6,6 +6,7 @@
     "start": "node server.js",
     "client": "cd client/space-trucker-tools && npm start",
     "client:build": "cd client/space-trucker-tools && npm run build",
+    "client:test": "cd client/space-trucker-tools && npm test",
     "client:install": "cd client/space-trucker-tools && npm install",
     "dev": "concurrently \"npm start\" \"npm run client\"",
     "build": "npm run client:build"

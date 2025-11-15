@@ -1,4 +1,111 @@
-<div class="placeholder-page">
-  <h1>Yield 2 Sell</h1>
-  <p>🚧 This page is under construction and will be converted from the original HTML version.</p>
-</div>
+<section class="yield-page">
+  <div class="panel">
+    <h1>Yield 2 Sell</h1>
+
+    <form class="refinery-form" [formGroup]="refineryForm" (submit)="$event.preventDefault()">
+      <label class="full-width">
+        Refinery Name
+        <input type="text" formControlName="title" placeholder="Enter refinery name" />
+      </label>
+
+      <label>
+        Refining Type
+        <select formControlName="refiningType">
+          <option value="Ferron">Ferron</option>
+          <option value="Dynix">Dynix</option>
+        </select>
+      </label>
+
+      <label>
+        Refining Cost (aUEC)
+        <input type="number" min="0" formControlName="refiningCost" />
+      </label>
+
+      <label>
+        Duration (Hours)
+        <input type="number" min="0" max="23" formControlName="refiningHours" />
+      </label>
+
+      <label>
+        Duration (Minutes)
+        <input type="number" min="0" max="59" formControlName="refiningMinutes" />
+      </label>
+
+      <div class="order-ready">
+        Order Ready At:
+        <span>{{ orderReadyAt }}</span>
+      </div>
+    </form>
+
+    <div class="table-wrapper" *ngIf="loadState() === 'ready' && rows().length; else loading" [formGroup]="rowFormGroup">
+      <table>
+        <thead>
+          <tr>
+            <th>Item</th>
+            <th>Yield</th>
+            <th>Location</th>
+            <th>Price Per SCU (aUEC)</th>
+            <th>Item Total</th>
+          </tr>
+        </thead>
+        <tbody formArrayName="rows">
+          <tr *ngFor="let row of rows(); let i = index; trackBy: trackByIndex" [formGroupName]="i">
+            <td [style.color]="row.color || '#fff'">{{ row.itemName }}</td>
+            <td>
+              <input type="number" min="0" formControlName="yield" />
+            </td>
+            <td>
+              <select formControlName="selectedDestination">
+                <option *ngFor="let destination of row.destinations" [value]="destination.location">
+                  {{ destination.location }}
+                </option>
+              </select>
+            </td>
+            <td>{{ row.pricePerScu | number }}</td>
+            <td class="row-total">{{ row.total | number }}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <ng-template #loading>
+      <p class="loading-state" *ngIf="loadState() === 'loading'">Loading price data...</p>
+      <div class="error-state" *ngIf="loadState() === 'error'">
+        <p>{{ loadError() }}</p>
+        <button type="button" (click)="retryLoad()" [disabled]="loadState() === 'loading'">Retry</button>
+      </div>
+    </ng-template>
+
+    <div class="total-display">Estimated Total: {{ grandTotal() | number }} aUEC</div>
+
+    <div class="notice" *ngIf="notification() as note" [class.error]="note.type === 'error'">
+      <strong>{{ note.title }}</strong>
+      <span>{{ note.message }}</span>
+    </div>
+
+    <div class="action-row">
+      <button type="button" (click)="exportTxt()">Export TXT</button>
+      <button type="button" (click)="exportCsv()">Export CSV</button>
+      <button type="button" (click)="copyToClipboard()">Copy to Clipboard</button>
+    </div>
+
+    <div class="modal-row">
+      <button type="button" (click)="openJumpModal()">Open Jump Data</button>
+      <button type="button" (click)="openRockModal()">Open Rock Composition</button>
+    </div>
+    <p class="error-state" *ngIf="jumpRoutesError()">{{ jumpRoutesError() }}</p>
+  </div>
+
+  <app-jump-data-modal
+    [open]="isJumpModalOpen()"
+    [routes]="jumpRoutes$ | async"
+    (closed)="closeJumpModal()">
+  </app-jump-data-modal>
+
+  <app-rock-composition-modal
+    [open]="isRockModalOpen()"
+    [snapshots]="rockSnapshots()"
+    (closed)="closeRockModal()"
+    (saved)="handleRockSaved($event)"
+    (snapshotDeleted)="handleRockDeleted($event)">
+  </app-rock-composition-modal>
+</section>

@@ -1,0 +1,31 @@
+<div class="modal-backdrop" *ngIf="open">
+  <div class="modal-card">
+    <button class="close-btn" type="button" (click)="close()">&times;</button>
+    <h2>Quantum Jump Data for Aaron's Halo</h2>
+
+    <table>
+      <thead>
+        <tr>
+          <th>From</th>
+          <th>To</th>
+          <th>Drop-Out Range (millions of km)</th>
+          <th>Notes</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let route of routes">
+          <td>{{ route.from }}</td>
+          <td>{{ route.to }}</td>
+          <td class="highlight">{{ route.range }}</td>
+          <td>{{ route.notes }}</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="actions">
+      <button type="button" (click)="exportTxt()">Export TXT</button>
+      <button type="button" (click)="exportCsv()">Export CSV</button>
+      <button type="button" (click)="copyToClipboard()">Copy to Clipboard</button>
+    </div>
+  </div>
+</div>
