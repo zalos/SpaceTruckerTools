@@ -12,7 +12,7 @@ describe('Yield2SellDataService', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      imports: [HttpClientTestingModule]
+      imports: [HttpClientTestingModule],
     });
     service = TestBed.inject(Yield2SellDataService);
     httpMock = TestBed.inject(HttpTestingController);
@@ -30,8 +30,8 @@ describe('Yield2SellDataService', () => {
     req.flush({
       Stileron: {
         Lorville: 500,
-        Area18: 100
-      }
+        Area18: 100,
+      },
     });
     const items = await promise;
     expect(items.length).toBe(1);

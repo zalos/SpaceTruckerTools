@@ -37,7 +37,11 @@
       </div>
     </form>
 
-    <div class="table-wrapper" *ngIf="loadState() === 'ready' && rows().length; else loading" [formGroup]="rowFormGroup">
+    <div
+      class="table-wrapper"
+      *ngIf="loadState() === 'ready' && rows().length; else loading"
+      [formGroup]="rowFormGroup"
+    >
       <table>
         <thead>
           <tr>
@@ -71,7 +75,9 @@
       <p class="loading-state" *ngIf="loadState() === 'loading'">Loading price data...</p>
       <div class="error-state" *ngIf="loadState() === 'error'">
         <p>{{ loadError() }}</p>
-        <button type="button" (click)="retryLoad()" [disabled]="loadState() === 'loading'">Retry</button>
+        <button type="button" (click)="retryLoad()" [disabled]="loadState() === 'loading'">
+          Retry
+        </button>
       </div>
     </ng-template>
 
@@ -98,7 +104,8 @@
   <app-jump-data-modal
     [open]="isJumpModalOpen()"
     [routes]="jumpRoutes$ | async"
-    (closed)="closeJumpModal()">
+    (closed)="closeJumpModal()"
+  >
   </app-jump-data-modal>
 
   <app-rock-composition-modal
@@ -106,6 +113,7 @@
     [snapshots]="rockSnapshots()"
     (closed)="closeRockModal()"
     (saved)="handleRockSaved($event)"
-    (snapshotDeleted)="handleRockDeleted($event)">
+    (snapshotDeleted)="handleRockDeleted($event)"
+  >
   </app-rock-composition-modal>
 </section>

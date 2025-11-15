@@ -8,7 +8,7 @@ import { ExportService } from '../../services/export.service';
   standalone: true,
   imports: [CommonModule],
   templateUrl: './jump-data-modal.html',
-  styleUrl: './jump-data-modal.scss'
+  styleUrl: './jump-data-modal.scss',
 })
 export class JumpDataModalComponent {
   @Input() open = false;
@@ -26,7 +26,7 @@ export class JumpDataModalComponent {
       return;
     }
 
-    const header = "From | To | Range (mil km) | Notes";
+    const header = 'From | To | Range (mil km) | Notes';
     const body = this.routes
       .map((route) => `${route.from} | ${route.to} | ${route.range} | ${route.notes ?? ''}`)
       .join('\n');
@@ -54,7 +54,7 @@ export class JumpDataModalComponent {
       return;
     }
 
-    const header = "From | To | Range (mil km) | Notes";
+    const header = 'From | To | Range (mil km) | Notes';
     const body = this.routes
       .map((route) => `${route.from} | ${route.to} | ${route.range} | ${route.notes ?? ''}`)
       .join('\n');

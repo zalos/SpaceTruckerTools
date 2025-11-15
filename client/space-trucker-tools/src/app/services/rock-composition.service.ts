@@ -42,7 +42,9 @@ export class RockCompositionService {
   private getStorage(requireWritable = false): Storage | null {
     if (!isPlatformBrowser(this.platformId)) {
       if (requireWritable) {
-        throw new Error('Rock composition storage is not available outside the browser environment.');
+        throw new Error(
+          'Rock composition storage is not available outside the browser environment.'
+        );
       }
       return null;
     }

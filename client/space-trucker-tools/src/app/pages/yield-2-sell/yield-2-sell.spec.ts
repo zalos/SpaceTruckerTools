@@ -15,14 +15,12 @@ const mockItems: YieldItem[] = [
     name: 'Stileron',
     destinations: [
       { location: 'Area18', price: 28_447 },
-      { location: 'Lorville', price: 26_000 }
-    ]
-  }
+      { location: 'Lorville', price: 26_000 },
+    ],
+  },
 ];
 
-const mockRoutes: JumpRoute[] = [
-  { from: 'ArcCorp', to: 'MicroTech', range: '46.21' }
-];
+const mockRoutes: JumpRoute[] = [{ from: 'ArcCorp', to: 'MicroTech', range: '46.21' }];
 
 describe('Yield2Sell Component', () => {
   let spectator: Spectator<Yield2Sell>;
@@ -31,26 +29,26 @@ describe('Yield2Sell Component', () => {
     component: Yield2Sell,
     providers: [
       mockProvider(Yield2SellDataService, {
-        getItems: () => of(mockItems)
+        getItems: () => of(mockItems),
       }),
       mockProvider(ItemColorService, {
-        getColorMap: () => of({ Stileron: '#fefefe' })
+        getColorMap: () => of({ Stileron: '#fefefe' }),
       }),
       mockProvider(JumpDataService, {
-        getRoutes: () => of(mockRoutes)
+        getRoutes: () => of(mockRoutes),
       }),
       mockProvider(ExportService, {
         formatFilename: () => 'export.txt',
         downloadText: vi.fn(),
         downloadCsv: vi.fn(),
-        copyToClipboard: vi.fn().mockResolvedValue(undefined)
+        copyToClipboard: vi.fn().mockResolvedValue(undefined),
       }),
       mockProvider(RockCompositionService, {
         getSnapshots: () => [],
         saveSnapshot: vi.fn(),
-        deleteSnapshot: vi.fn()
-      })
-    ]
+        deleteSnapshot: vi.fn(),
+      }),
+    ],
   });
 
   beforeEach(() => {
@@ -66,7 +64,7 @@ describe('Yield2Sell Component', () => {
     expect(firstRow.total).toBe(2 * mockItems[0].destinations[0].price);
     expect(spectator.component.grandTotal()).toBe(firstRow.total);
     const totalCell = spectator.query('.row-total');
-    expect(totalCell?.textContent?.trim()).toBe((firstRow.total).toLocaleString());
+    expect(totalCell?.textContent?.trim()).toBe(firstRow.total.toLocaleString());
   });
 
   it('raises a non-blocking notice after exporting TXT', () => {

@@ -14,7 +14,7 @@ interface CompositionRow {
   standalone: true,
   imports: [CommonModule, FormsModule],
   templateUrl: './rock-composition-modal.html',
-  styleUrl: './rock-composition-modal.scss'
+  styleUrl: './rock-composition-modal.scss',
 })
 export class RockCompositionModalComponent implements OnChanges {
   @Input() open = false;

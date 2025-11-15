@@ -1,11 +1,34 @@
 import { CommonModule } from '@angular/common';
 import { Component, DestroyRef, OnDestroy, computed, inject, signal } from '@angular/core';
-import { FormArray, FormBuilder, FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
+import {
+  FormArray,
+  FormBuilder,
+  FormControl,
+  FormGroup,
+  ReactiveFormsModule,
+} from '@angular/forms';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
-import { EMPTY, Subject, catchError, combineLatest, Observable, of, startWith, switchMap, tap, timer } from 'rxjs';
+import {
+  EMPTY,
+  Subject,
+  catchError,
+  combineLatest,
+  Observable,
+  of,
+  startWith,
+  switchMap,
+  tap,
+  timer,
+} from 'rxjs';
 import { JumpDataModalComponent } from '../../components/jump-data-modal/jump-data-modal';
 import { RockCompositionModalComponent } from '../../components/rock-composition-modal/rock-composition-modal';
-import { JumpRoute, RockCompositionSnapshot, YieldDestination, YieldItem, YieldRowState } from '../../models/yield-2-sell.models';
+import {
+  JumpRoute,
+  RockCompositionSnapshot,
+  YieldDestination,
+  YieldItem,
+  YieldRowState,
+} from '../../models/yield-2-sell.models';
 import { ExportService } from '../../services/export.service';
 import { ItemColorService } from '../../services/item-color.service';
 import { JumpDataService } from '../../services/jump-data.service';
@@ -28,9 +51,14 @@ type Notice = { type: 'info' | 'error'; title: string; message: string };
 @Component({
   selector: 'app-yield-2-sell',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule, JumpDataModalComponent, RockCompositionModalComponent],
+  imports: [
+    CommonModule,
+    ReactiveFormsModule,
+    JumpDataModalComponent,
+    RockCompositionModalComponent,
+  ],
   templateUrl: './yield-2-sell.html',
-  styleUrl: './yield-2-sell.scss'
+  styleUrl: './yield-2-sell.scss',
 })
 export class Yield2Sell implements OnDestroy {
   private readonly fb = inject(FormBuilder);
@@ -47,11 +75,11 @@ export class Yield2Sell implements OnDestroy {
     refiningType: ['Ferron'],
     refiningCost: [0],
     refiningHours: [0],
-    refiningMinutes: [0]
+    refiningMinutes: [0],
   });
 
   readonly rowFormGroup = this.fb.group({
-    rows: this.fb.array<RowFormGroup>([])
+    rows: this.fb.array<RowFormGroup>([]),
   });
 
   readonly rowContexts = signal<RowContext[]>([]);
@@ -104,7 +132,11 @@ export class Yield2Sell implements OnDestroy {
     const content = `${header}\nItem,Yield,Location,Price Per SCU,Item Total\n${table}`;
     const filename = this.exportService.formatFilename(this.headerTitle(), 'csv');
     this.exportService.downloadCsv(content, filename);
-    this.raiseNotice('info', 'Export complete', 'CSV export downloaded. Reminder: The file uses commas as delimiters.');
+    this.raiseNotice(
+      'info',
+      'Export complete',
+      'CSV export downloaded. Reminder: The file uses commas as delimiters.'
+    );
   }
 
   async copyToClipboard(): Promise<void> {
@@ -148,7 +180,11 @@ export class Yield2Sell implements OnDestroy {
       this.rockSnapshots.set(updated);
     } catch (error) {
       console.error('Unable to store rock composition snapshot', error);
-      this.raiseNotice('error', 'Save failed', 'Saving rock compositions is unavailable in this environment.');
+      this.raiseNotice(
+        'error',
+        'Save failed',
+        'Saving rock compositions is unavailable in this environment.'
+      );
     }
   }
 
@@ -158,7 +194,11 @@ export class Yield2Sell implements OnDestroy {
       this.rockSnapshots.set(updated);
     } catch (error) {
       console.error('Unable to delete rock composition snapshot', error);
-      this.raiseNotice('error', 'Delete failed', 'Deleting rock compositions is unavailable in this environment.');
+      this.raiseNotice(
+        'error',
+        'Delete failed',
+        'Deleting rock compositions is unavailable in this environment.'
+      );
     }
   }
 
@@ -178,7 +218,7 @@ export class Yield2Sell implements OnDestroy {
       `Refining Type: ${form.refiningType}`,
       `Refining Cost: ${form.refiningCost || 0} aUEC`,
       `Duration: ${form.refiningHours || 0}h ${form.refiningMinutes || 0}m`,
-      `Order Ready At: ${this.orderReadyAt}`
+      `Order Ready At: ${this.orderReadyAt}`,
     ].join('\n');
   }
 
@@ -189,7 +229,7 @@ export class Yield2Sell implements OnDestroy {
       `Refining Type:,${form.refiningType}`,
       `Refining Cost:,${form.refiningCost || 0} aUEC`,
       `Duration:,${form.refiningHours || 0}h ${form.refiningMinutes || 0}m`,
-      `Order Ready At:,${this.orderReadyAt}`
+      `Order Ready At:,${this.orderReadyAt}`,
     ].join('\n');
   }
 
@@ -202,7 +242,7 @@ export class Yield2Sell implements OnDestroy {
           row.yield,
           row.selectedDestination,
           row.pricePerScu.toLocaleString(),
-          row.total.toLocaleString()
+          row.total.toLocaleString(),
         ]
           .map((value) => (quote ? `"${value}"` : value))
           .join(delimiter)
@@ -212,7 +252,9 @@ export class Yield2Sell implements OnDestroy {
 
   private recalculateRow(row: YieldRowState, updates: Partial<YieldRowState> = {}): YieldRowState {
     const merged = { ...row, ...updates };
-    const destination = merged.destinations.find((dest) => dest.location === merged.selectedDestination);
+    const destination = merged.destinations.find(
+      (dest) => dest.location === merged.selectedDestination
+    );
     merged.pricePerScu = destination?.price ?? merged.destinations[0]?.price ?? 0;
     merged.selectedDestination = destination?.location ?? merged.destinations[0]?.location ?? '';
     merged.scu = Math.floor(merged.yield || 0);
@@ -253,7 +295,7 @@ export class Yield2Sell implements OnDestroy {
     const contexts = items.map<RowContext>((item) => ({
       itemName: item.name,
       destinations: item.destinations,
-      color: colors[item.name]
+      color: colors[item.name],
     }));
 
     this.rowContexts.set(contexts);
@@ -279,10 +321,11 @@ export class Yield2Sell implements OnDestroy {
   }
 
   private createRowForm(context: RowContext, previous?: YieldRowState): RowFormGroup {
-    const defaultDestination = previous?.selectedDestination ?? context.destinations[0]?.location ?? '';
+    const defaultDestination =
+      previous?.selectedDestination ?? context.destinations[0]?.location ?? '';
     return this.fb.group({
       yield: [previous?.yield ?? 0],
-      selectedDestination: [defaultDestination]
+      selectedDestination: [defaultDestination],
     });
   }
 
@@ -299,22 +342,24 @@ export class Yield2Sell implements OnDestroy {
       const fallbackDestination = context.destinations[0]?.location ?? '';
       const selectedDestination = form?.value.selectedDestination || fallbackDestination;
 
-      if (form && (form.value.yield !== sanitizedYield || form.value.selectedDestination !== selectedDestination)) {
+      if (
+        form &&
+        (form.value.yield !== sanitizedYield ||
+          form.value.selectedDestination !== selectedDestination)
+      ) {
         form.patchValue({ yield: sanitizedYield, selectedDestination }, { emitEvent: false });
       }
 
-      return this.recalculateRow(
-        {
-          itemName: context.itemName,
-          destinations: context.destinations,
-          yield: sanitizedYield,
-          scu: 0,
-          selectedDestination,
-          pricePerScu: 0,
-          total: 0,
-          color: context.color
-        }
-      );
+      return this.recalculateRow({
+        itemName: context.itemName,
+        destinations: context.destinations,
+        yield: sanitizedYield,
+        scu: 0,
+        selectedDestination,
+        pricePerScu: 0,
+        total: 0,
+        color: context.color,
+      });
     });
 
     this.rows.set(updated);

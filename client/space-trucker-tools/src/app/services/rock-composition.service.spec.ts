@@ -39,18 +39,18 @@ describe('RockCompositionService', () => {
     rockSize: 32,
     inertFilter: 5,
     materials: [{ name: 'Quantanium', percentage: 50 }],
-    savedAt: new Date().toISOString()
+    savedAt: new Date().toISOString(),
   };
 
   beforeEach(() => {
     storage = new MockStorage();
     Object.defineProperty(window, 'localStorage', {
       value: storage,
-      configurable: true
+      configurable: true,
     });
 
     TestBed.configureTestingModule({
-      providers: [{ provide: PLATFORM_ID, useValue: 'browser' }]
+      providers: [{ provide: PLATFORM_ID, useValue: 'browser' }],
     });
 
     service = TestBed.inject(RockCompositionService);
@@ -80,10 +80,12 @@ describe('RockCompositionService', () => {
   it('throws when storage is unavailable outside the browser', () => {
     TestBed.resetTestingModule();
     TestBed.configureTestingModule({
-      providers: [{ provide: PLATFORM_ID, useValue: 'server' }]
+      providers: [{ provide: PLATFORM_ID, useValue: 'server' }],
     });
 
     const nonBrowserService = TestBed.inject(RockCompositionService);
-    expect(() => nonBrowserService.saveSnapshot(snapshot)).toThrowError(/not available outside the browser/);
+    expect(() => nonBrowserService.saveSnapshot(snapshot)).toThrowError(
+      /not available outside the browser/
+    );
   });
 });

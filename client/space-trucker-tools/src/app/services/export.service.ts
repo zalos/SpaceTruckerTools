@@ -28,7 +28,8 @@ export class ExportService {
 
   formatFilename(base: string, extension: string): string {
     const timestamp = new Date().toISOString().slice(0, 16).replace(/[:T]/g, '-');
-    const sanitized = base.trim().length > 0 ? base.trim().replace(/\s+/g, '_') : 'yield-2-sell-export';
+    const sanitized =
+      base.trim().length > 0 ? base.trim().replace(/\s+/g, '_') : 'yield-2-sell-export';
     return `${sanitized}_${timestamp}.${extension}`;
   }
 
